@@ -15,6 +15,7 @@ public class GameMapper {
                 .title(game.getTitle())
                 .genre(game.getGenre())
                 .year(game.getYear())
+                .description(game.getDescription())
                 .build();
     }
 
@@ -25,6 +26,8 @@ public class GameMapper {
         game.setTitle(dto.getTitle());
         game.setGenre(dto.getGenre());
         game.setYear(dto.getYear());
+        game.setDescription(dto.getDescription());
+        // createdAt проставится автоматически через @PrePersist
         return game;
     }
 
@@ -34,5 +37,7 @@ public class GameMapper {
         game.setTitle(dto.getTitle());
         game.setGenre(dto.getGenre());
         game.setYear(dto.getYear());
+        game.setDescription(dto.getDescription());
+        // Не обновляем createdAt — дата создания не меняется
     }
 }

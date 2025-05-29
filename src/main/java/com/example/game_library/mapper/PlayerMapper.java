@@ -14,6 +14,9 @@ public class PlayerMapper {
                 .id(player.getId())
                 .name(player.getName())
                 .rating(player.getRating())
+                .email(player.getEmail())
+                .birthDate(player.getBirthDate())
+                .registeredAt(player.getRegisteredAt())
                 .build();
     }
 
@@ -23,6 +26,9 @@ public class PlayerMapper {
         Player player = new Player();
         player.setName(dto.getName());
         player.setRating(dto.getRating());
+        player.setEmail(dto.getEmail());
+        player.setBirthDate(dto.getBirthDate());
+        player.setRegisteredAt(dto.getRegisteredAt());
         return player;
     }
 
@@ -31,5 +37,8 @@ public class PlayerMapper {
 
         player.setName(dto.getName());
         player.setRating(dto.getRating());
+        player.setEmail(dto.getEmail());
+        player.setBirthDate(dto.getBirthDate());
+        player.setRegisteredAt(dto.getRegisteredAt());
     }
 }

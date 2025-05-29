@@ -26,8 +26,7 @@ public class GameController {
     @Operation(summary = "Получить список всех игр")
     @GetMapping
     public ResponseEntity<List<GameDto>> getAll() {
-        List<GameDto> games = gameService.findAllDto();
-        return ResponseEntity.ok(games);
+        return ResponseEntity.ok(gameService.findAllDto());
     }
 
     @Operation(summary = "Получить игру по ID")
@@ -40,15 +39,15 @@ public class GameController {
     @Operation(summary = "Создать новую игру")
     @PostMapping
     public ResponseEntity<GameDto> create(@Valid @RequestBody GameDto gameDto) {
-        GameDto createdGame = gameService.saveDto(gameDto);
-        return ResponseEntity.ok(createdGame);
+        GameDto created = gameService.saveDto(gameDto);
+        return ResponseEntity.ok(created);
     }
 
     @Operation(summary = "Обновить игру по ID")
     @PutMapping("/{id}")
     public ResponseEntity<GameDto> update(@PathVariable Long id, @Valid @RequestBody GameDto gameDto) {
-        GameDto updatedGame = gameService.updateDto(id, gameDto);
-        return ResponseEntity.ok(updatedGame);
+        GameDto updated = gameService.updateDto(id, gameDto);
+        return ResponseEntity.ok(updated);
     }
 
     @Operation(summary = "Удалить игру по ID")
