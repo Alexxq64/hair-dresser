@@ -1,5 +1,6 @@
 server:
   port: 8086
+
 spring:
   datasource:
     url: jdbc:sqlite:game-library.db
@@ -13,4 +14,6 @@ spring:
 
 logging:
   level:
+    root: INFO
+    com.example.game_library: DEBUG
     org.hibernate.SQL: DEBUG
