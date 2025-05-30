@@ -30,7 +30,6 @@ public class Player {
     @Column
     private String email;
 
-    @Past
     @Column(name = "birth_date")
     private String  birthDate;
 

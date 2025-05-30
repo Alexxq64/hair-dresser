@@ -31,11 +31,9 @@ public class PlayerDto {
     @Schema(description = "Email игрока", example = "john.doe@example.com")
     private String email;
 
-    @Past(message = "Дата рождения должна быть в прошлом")
     @Schema(description = "Дата рождения игрока", example = "1990-01-01")
     private String birthDate;
 
-    @NotNull(message = "Дата регистрации не может быть пустой")
     @Schema(description = "Дата регистрации игрока", example = "2023-05-28")
     private String registeredAt;
 
