@@ -12,4 +12,8 @@ public class BaseResponseService {
     public <T> ResponseWrapper<T> createErrorResponse(String code, String message) {
         return ResponseWrapper.error(code, message);
     }
+
+    public ResponseWrapper<?> createErrorResponse(String code, String message, Object details) {
+        return new ResponseWrapper<>(null, new ErrorDto(code, message, details));
+    }
 }
