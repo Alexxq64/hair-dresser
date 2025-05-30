@@ -46,8 +46,8 @@ public class Game {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "game_category",
-            joinColumns = @JoinColumn(name = "game_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
+            joinColumns = @JoinColumn(name = "gameId"),
+            inverseJoinColumns = @JoinColumn(name = "categoryId")
     )
     private Set<Category> categories = new HashSet<>();
 

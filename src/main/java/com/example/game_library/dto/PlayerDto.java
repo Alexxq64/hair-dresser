@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -32,11 +33,11 @@ public class PlayerDto {
 
     @Past(message = "Дата рождения должна быть в прошлом")
     @Schema(description = "Дата рождения игрока", example = "1990-01-01")
-    private LocalDate birthDate;
+    private LocalDateTime birthDate;
 
     @NotNull(message = "Дата регистрации не может быть пустой")
     @Schema(description = "Дата регистрации игрока", example = "2023-05-28")
-    private LocalDate registeredAt;
+    private LocalDateTime  registeredAt;
 
     @Schema(description = "Список достижений игрока")
     private List<AchievementDto> achievements;

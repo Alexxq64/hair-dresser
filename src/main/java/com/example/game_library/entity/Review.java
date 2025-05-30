@@ -20,7 +20,7 @@ public class Review {
     // Связь с игрой — вместо Long gameId
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
+    @JoinColumn(name = "gameId", nullable = false)
     private Game game;
 
     @NotNull

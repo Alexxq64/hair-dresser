@@ -31,10 +31,12 @@ public class Player {
     private String email;
 
     @Past
-    private LocalDate birthDate;
+    @Column(name = "birth_date")
+    private LocalDateTime  birthDate;
 
     @NotNull
-    private LocalDate registeredAt;
+    @Column(name = "registered_at")
+    private LocalDateTime  registeredAt;
 
     // Связь 1 Player - N Achievements с каскадом и orphanRemoval
     @OneToMany(

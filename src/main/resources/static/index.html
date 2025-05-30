@@ -1,5 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head><title>Test</title></head>
-<body>Hello, world!</body>
+<head>
+    <title>Players List</title>
+</head>
+<body>
+<button id="loadPlayersBtn">Загрузить игроков</button>
+<ul id="playersList"></ul>
+
+<script>
+        document.getElementById('loadPlayersBtn').addEventListener('click', function() {
+            fetch('/api/players')
+                .then(response => response.json())
+                .then(players => {
+                    const list = document.getElementById('playersList');
+                    list.innerHTML = ''; // очистить список перед выводом
+                    players.forEach(player => {
+                        const li = document.createElement('li');
+                        li.textContent = `ID: ${player.id}, Name: ${player.name}, Rating: ${player.rating}`;
+                        list.appendChild(li);
+                    });
+                })
+                .catch(err => {
+                    alert('Ошибка загрузки игроков');
+                    console.error(err);
+                });
+        });
+    </script>
+</body>
 </html>

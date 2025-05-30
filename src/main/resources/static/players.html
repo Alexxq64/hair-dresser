@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Список игроков</title>
+</head>
+<body>
+<h1>Игроки</h1>
+<button id="loadPlayersBtn">Загрузить игроков</button>
+
+<table id="playersTable" border="1" style="margin-top: 10px; border-collapse: collapse; display:none;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Рейтинг</th>
+        <th>Email</th>
+        <th>Дата рождения</th>
+        <th>Дата регистрации</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+document.getElementById('loadPlayersBtn').addEventListener('click', () => {
+    fetch('/api/players')
+        .then(response => {
+            if (!response.ok) throw new Error('Ошибка сети');
+            return response.json();
+        })
+        .then(json => {
+            if (json.error) throw new Error(json.error.message || 'Ошибка сервера');
+            const players = Array.isArray(json) ? json : json.data;
+            const tbody = document.querySelector('#playersTable tbody');
+            tbody.innerHTML = ''; // Очистить таблицу
+
+            players.forEach(player => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${player.id}</td>
+                    <td>${player.name}</td>
+                    <td>${player.rating}</td>
+                    <td>${player.email || ''}</td>
+                    <td>${player.birthDate || ''}</td>
+                    <td>${player.registeredAt || ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('playersTable').style.display = 'table';
+        })
+        .catch(error => {
+            alert('Не удалось загрузить игроков: ' + error.message);
+            console.error(error);
+        });
+});
+</script>
+</body>
+</html>

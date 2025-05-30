@@ -19,7 +19,7 @@ public class Achievement {
 
     // Многие Achievements принадлежат одному Player
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "player_id", nullable = false)
+    @JoinColumn(name = "playerId", nullable = false)
     private Player player;
 
     @NotBlank
