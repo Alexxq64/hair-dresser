@@ -1,8 +1,11 @@
 package com.example.game_library.controller;
 
 import com.example.game_library.dto.PlayerDto;
+import com.example.game_library.dto.PlayerFullDto;
 import com.example.game_library.service.PlayerService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +45,12 @@ public class PlayerController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         playerService.deleteById(id);
+    }
+
+    @Operation(summary = "Получить полную информацию об игроке")
+    @GetMapping("/{id}/full")
+    public ResponseEntity<PlayerFullDto> getFullInfo(@PathVariable Long id) {
+        PlayerFullDto fullDto = playerService.getFullPlayerInfo(id);
+        return ResponseEntity.ok(fullDto);
     }
 }

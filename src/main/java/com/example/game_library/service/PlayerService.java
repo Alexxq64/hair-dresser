@@ -1,8 +1,14 @@
 package com.example.game_library.service;
 
+import com.example.game_library.dto.AchievementDto;
+import com.example.game_library.dto.GameDto;
 import com.example.game_library.dto.PlayerDto;
+import com.example.game_library.dto.PlayerFullDto;
 import com.example.game_library.entity.Player;
+import com.example.game_library.mapper.AchievementMapper;
+import com.example.game_library.mapper.GameMapper;
 import com.example.game_library.mapper.PlayerMapper;
+import com.example.game_library.repo.GameRepository;
 import com.example.game_library.repo.PlayerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,20 +23,30 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
+    private final AchievementMapper achievementMapper;
+    private final GameMapper gameMapper;
+    private final GameRepository gameRepository;
 
-    public PlayerService(PlayerRepository playerRepository, PlayerMapper playerMapper) {
+    public PlayerService(
+            PlayerRepository playerRepository,
+            PlayerMapper playerMapper,
+            AchievementMapper achievementMapper,
+            GameMapper gameMapper,
+            GameRepository gameRepository
+    ) {
         this.playerRepository = playerRepository;
         this.playerMapper = playerMapper;
+        this.achievementMapper = achievementMapper;
+        this.gameMapper = gameMapper;
+        this.gameRepository = gameRepository;
     }
 
     public List<PlayerDto> findAllDto() {
         log.info("Fetching all players");
-        List<PlayerDto> dtos = playerRepository.findAll()
+        return playerRepository.findAll()
                 .stream()
                 .map(playerMapper::toDto)
                 .collect(Collectors.toList());
-        log.debug("Found {} players", dtos.size());
-        return dtos;
     }
 
     public PlayerDto findByIdDto(Long id) {
@@ -71,7 +87,7 @@ public class PlayerService {
         log.info("Deleted player with id={}", id);
     }
 
-    // Старые entity-методы (если нужны)
+    // Методы работы с сущностями напрямую (если нужно)
     public List<Player> findAll() {
         log.info("Fetching all player entities");
         return playerRepository.findAll();
@@ -88,4 +104,27 @@ public class PlayerService {
         log.info("Saved player entity with id={}", saved.getId());
         return saved;
     }
+
+    // Составной метод: игрок + достижения (без игр)
+    public PlayerFullDto getFullPlayerInfo(Long playerId) {
+        log.info("Fetching full info (without games) for player id={}", playerId);
+
+        Player player = playerRepository.findById(playerId)
+                .orElseThrow(() -> new RuntimeException("Игрок не найден"));
+
+        List<AchievementDto> achievements = player.getAchievements().stream()
+                .map(achievementMapper::toDto)
+                .toList();
+
+        return PlayerFullDto.builder()
+                .id(player.getId())
+                .name(player.getName())
+                .rating(player.getRating())
+                .email(player.getEmail())
+                .birthDate(player.getBirthDate().toString())
+                .registeredAt(player.getRegisteredAt().toString())
+                .achievements(achievements)
+                .build();
+    }
+
 }
