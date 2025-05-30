@@ -28,7 +28,7 @@ public class Achievement {
     private String title;
 
     @Size(max = 255)
-    private String description;
+    private LocalDateTime description;
 
     @NotNull
     @Column(nullable = false)

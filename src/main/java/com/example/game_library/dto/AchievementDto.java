@@ -27,7 +27,7 @@ public class AchievementDto {
 
     @Size(max = 255, message = "Описание достижения не должно превышать 255 символов")
     @Schema(description = "Описание достижения", example = "Выиграл финальный матч чемпионата")
-    private String description;
+    private LocalDateTime description;
 
     @Schema(description = "Дата достижения")
     private LocalDateTime achievedAt;

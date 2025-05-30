@@ -32,11 +32,11 @@ public class Player {
 
     @Past
     @Column(name = "birth_date")
-    private LocalDateTime  birthDate;
+    private String  birthDate;
 
     @NotNull
     @Column(name = "registered_at")
-    private LocalDateTime  registeredAt;
+    private String  registeredAt;
 
     // Связь 1 Player - N Achievements с каскадом и orphanRemoval
     @OneToMany(
