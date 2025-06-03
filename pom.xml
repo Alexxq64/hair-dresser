@@ -12,9 +12,9 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>game-library</artifactId>
+	<artifactId>procedure-library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>game-library</name>
+	<name>procedure-library</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -44,6 +44,12 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+
+		<!-- Flyway для миграций -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
 
 		<!-- SQLite JDBC драйвер -->

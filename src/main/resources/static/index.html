@@ -2,27 +2,31 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Players List</title>
+    <title>Clients List</title>
 </head>
 <body>
-<button id="loadPlayersBtn">Загрузить игроков</button>
-<ul id="playersList"></ul>
+<button id="loadClientsBtn">Загрузить клиентов</button>
+<ul id="clientsList"></ul>
 
 <script>
-        document.getElementById('loadPlayersBtn').addEventListener('click', function() {
-            fetch('/api/players')
-                .then(response => response.json())
-                .then(players => {
-                    const list = document.getElementById('playersList');
+        document.getElementById('loadClientsBtn').addEventListener('click', function() {
+            fetch('/api/clients')
+                .then(response => {
+                    if (!response.ok) throw new Error('Ошибка сервера');
+                    return response.json();
+                })
+                .then(clients => {
+                    const list = document.getElementById('clientsList');
                     list.innerHTML = ''; // очистить список перед выводом
-                    players.forEach(player => {
+
+                    clients.forEach(client => {
                         const li = document.createElement('li');
-                        li.textContent = `ID: ${player.id}, Name: ${player.name}, Rating: ${player.rating}`;
+                        li.textContent = `ID: ${client.id}, Name: ${client.name}, Rating: ${client.rating}, Email: ${client.email || ''}, Birth Date: ${client.birthDate?.slice(0, 10) || ''}, Registered At: ${client.registeredAt?.slice(0, 10) || ''}`;
                         list.appendChild(li);
                     });
                 })
                 .catch(err => {
-                    alert('Ошибка загрузки игроков');
+                    alert('Ошибка загрузки клиентов');
                     console.error(err);
                 });
         });

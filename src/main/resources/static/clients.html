@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Список клиентов</title>
+</head>
+<body>
+<h1>Клиенты</h1>
+<button id="loadClientsBtn">Загрузить клиентов</button>
+
+<table id="clientsTable" border="1" style="margin-top: 10px; border-collapse: collapse; display: none;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Рейтинг</th>
+        <th>Email</th>
+        <th>Дата рождения</th>
+        <th>Дата регистрации</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+document.getElementById('loadClientsBtn').addEventListener('click', () => {
+    fetch('/api/clients')
+        .then(response => {
+            if (!response.ok) throw new Error('Ошибка сети');
+            return response.json();
+        })
+        .then(json => {
+            if (json.error) throw new Error(json.error.message || 'Ошибка сервера');
+            const clients = Array.isArray(json) ? json : json.data;
+            const tbody = document.querySelector('#clientsTable tbody');
+            tbody.innerHTML = ''; // Очистить таблицу
+
+            clients.forEach(client => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${client.id}</td>
+                    <td>${client.name}</td>
+                    <td>${client.rating}</td>
+                    <td>${client.email || ''}</td>
+                    <td>${client.birthDate ? client.birthDate.slice(0, 10) : ''}</td>
+                    <td>${client.registeredAt ? client.registeredAt.slice(0, 10) : ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('clientsTable').style.display = 'table';
+        })
+        .catch(error => {
+            alert('Не удалось загрузить клиентов: ' + error.message);
+            console.error(error);
+        });
+});
+</script>
+</body>
+</html>
