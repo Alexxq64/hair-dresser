@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.*;
 
 @Entity
+@Table(name = "clients")  // 🔧 ВАЖНО: добавляем явно имя таблицы
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

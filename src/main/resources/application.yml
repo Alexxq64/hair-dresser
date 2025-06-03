@@ -27,3 +27,4 @@ logging:
     root: INFO
     com.example.hair_dresser: DEBUG
     org.hibernate.SQL: DEBUG
+    org.flywaydb.core: DEBUG
